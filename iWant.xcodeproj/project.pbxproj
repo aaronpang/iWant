@@ -19,6 +19,11 @@
 		E31981C9190AFC2500A9389F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E31981B1190AFC2400A9389F /* UIKit.framework */; };
 		E31981D1190AFC2500A9389F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E31981CF190AFC2500A9389F /* InfoPlist.strings */; };
 		E31981D3190AFC2500A9389F /* iWantTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E31981D2190AFC2500A9389F /* iWantTests.m */; };
+		E31981DE190AFDC200A9389F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E31981DD190AFDC200A9389F /* RootViewController.m */; };
+		E31981E8190B274000A9389F /* spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = E31981E5190B274000A9389F /* spinner.png */; };
+		E31981E9190B274000A9389F /* bg_day.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E31981E6190B274000A9389F /* bg_day.jpg */; };
+		E31981EA190B274000A9389F /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E31981E7190B274000A9389F /* bg.jpg */; };
+		E31981ED190B2E2200A9389F /* QuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E31981EC190B2E2200A9389F /* QuestionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +53,13 @@
 		E31981CE190AFC2500A9389F /* iWantTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iWantTests-Info.plist"; sourceTree = "<group>"; };
 		E31981D0190AFC2500A9389F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E31981D2190AFC2500A9389F /* iWantTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iWantTests.m; sourceTree = "<group>"; };
+		E31981DC190AFDC200A9389F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		E31981DD190AFDC200A9389F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		E31981E5190B274000A9389F /* spinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spinner.png; sourceTree = "<group>"; };
+		E31981E6190B274000A9389F /* bg_day.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_day.jpg; sourceTree = "<group>"; };
+		E31981E7190B274000A9389F /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
+		E31981EB190B2E2200A9389F /* QuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionView.h; path = ../QuestionView.h; sourceTree = "<group>"; };
+		E31981EC190B2E2200A9389F /* QuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionView.m; path = ../QuestionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +121,13 @@
 			children = (
 				E31981BC190AFC2500A9389F /* AppDelegate.h */,
 				E31981BD190AFC2500A9389F /* AppDelegate.m */,
+				E31981DC190AFDC200A9389F /* RootViewController.h */,
+				E31981DD190AFDC200A9389F /* RootViewController.m */,
+				E31981EB190B2E2200A9389F /* QuestionView.h */,
+				E31981EC190B2E2200A9389F /* QuestionView.m */,
+				E31981E5190B274000A9389F /* spinner.png */,
+				E31981E6190B274000A9389F /* bg_day.jpg */,
+				E31981E7190B274000A9389F /* bg.jpg */,
 				E31981BF190AFC2500A9389F /* Images.xcassets */,
 				E31981B4190AFC2400A9389F /* Supporting Files */,
 			);
@@ -219,8 +238,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31981EA190B274000A9389F /* bg.jpg in Resources */,
 				E31981B8190AFC2500A9389F /* InfoPlist.strings in Resources */,
+				E31981E8190B274000A9389F /* spinner.png in Resources */,
 				E31981C0190AFC2500A9389F /* Images.xcassets in Resources */,
+				E31981E9190B274000A9389F /* bg_day.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,8 +261,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31981ED190B2E2200A9389F /* QuestionView.m in Sources */,
 				E31981BE190AFC2500A9389F /* AppDelegate.m in Sources */,
 				E31981BA190AFC2500A9389F /* main.m in Sources */,
+				E31981DE190AFDC200A9389F /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +384,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iWant/iWant-Prefix.pch";
 				INFOPLIST_FILE = "iWant/iWant-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -373,6 +398,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iWant/iWant-Prefix.pch";
 				INFOPLIST_FILE = "iWant/iWant-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -437,6 +463,7 @@
 				E31981D8190AFC2500A9389F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E31981D9190AFC2500A9389F /* Build configuration list for PBXNativeTarget "iWantTests" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +472,7 @@
 				E31981DB190AFC2500A9389F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
