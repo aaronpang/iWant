@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D85D5663190F38A0000F1729 /* QuestionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D85D5662190F38A0000F1729 /* QuestionButton.m */; };
+		D8CA0B01190E05D100132198 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CA0B00190E05D100132198 /* Constants.m */; };
 		E31981AE190AFC2400A9389F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E31981AD190AFC2400A9389F /* Foundation.framework */; };
 		E31981B0190AFC2400A9389F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E31981AF190AFC2400A9389F /* CoreGraphics.framework */; };
 		E31981B2190AFC2400A9389F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E31981B1190AFC2400A9389F /* UIKit.framework */; };
@@ -37,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D85D5661190F38A0000F1729 /* QuestionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionButton.h; sourceTree = "<group>"; };
+		D85D5662190F38A0000F1729 /* QuestionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionButton.m; sourceTree = "<group>"; };
+		D8CA0AFF190E05D100132198 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
+		D8CA0B00190E05D100132198 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = ../Constants.m; sourceTree = "<group>"; };
 		E31981AA190AFC2400A9389F /* iWant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iWant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E31981AD190AFC2400A9389F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E31981AF190AFC2400A9389F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -121,10 +127,14 @@
 			children = (
 				E31981BC190AFC2500A9389F /* AppDelegate.h */,
 				E31981BD190AFC2500A9389F /* AppDelegate.m */,
+				D8CA0AFF190E05D100132198 /* Constants.h */,
+				D8CA0B00190E05D100132198 /* Constants.m */,
 				E31981DC190AFDC200A9389F /* RootViewController.h */,
 				E31981DD190AFDC200A9389F /* RootViewController.m */,
 				E31981EB190B2E2200A9389F /* QuestionView.h */,
 				E31981EC190B2E2200A9389F /* QuestionView.m */,
+				D85D5661190F38A0000F1729 /* QuestionButton.h */,
+				D85D5662190F38A0000F1729 /* QuestionButton.m */,
 				E31981E5190B274000A9389F /* spinner.png */,
 				E31981E6190B274000A9389F /* bg_day.jpg */,
 				E31981E7190B274000A9389F /* bg.jpg */,
@@ -261,6 +271,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8CA0B01190E05D100132198 /* Constants.m in Sources */,
+				D85D5663190F38A0000F1729 /* QuestionButton.m in Sources */,
 				E31981ED190B2E2200A9389F /* QuestionView.m in Sources */,
 				E31981BE190AFC2500A9389F /* AppDelegate.m in Sources */,
 				E31981BA190AFC2500A9389F /* main.m in Sources */,

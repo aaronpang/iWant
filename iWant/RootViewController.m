@@ -8,6 +8,8 @@
 
 #import "RootViewController.h"
 #import "AppDelegate.h"
+#import "QuestionView.h"
+#import "QuestionButton.h"
 
 @interface RootViewController ()
 @end
@@ -16,7 +18,7 @@
     UIView *_rootView;
     UIImageView *_backgroundImageView;
     UIView *_loadingView;
-    UIView *_questionView;
+    QuestionView *_questionView;
 }
 
 - (id)init
@@ -25,21 +27,22 @@
     if (self) {
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         _rootView = [[UIView alloc] initWithFrame:appDelegate.window.bounds];
+        
         _backgroundImageView = [[UIImageView alloc] initWithFrame:_rootView.bounds];
-        _backgroundImageView.image = [UIImage imageNamed:@"bg.jpg"];
+        _backgroundImageView.image = [UIImage imageNamed:@"bg_day.jpg"];
         _backgroundImageView.contentMode = UIViewContentModeScaleToFill;
         [_rootView addSubview:_backgroundImageView];
         self.view = _rootView;
 
+        _questionView = [[QuestionView alloc] initWithFrame:_rootView.bounds];
+        [self.view addSubview:_questionView];
         
-        
-        
-        [UIView animateWithDuration:50.0f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
-            _backgroundImageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 2, 2);
-        } completion:^(BOOL finished) {
-        }];
     }
     return self;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidLoad
