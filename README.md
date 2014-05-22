@@ -13,6 +13,4 @@ It then uses a formula based on diminishing returns taking into account Price, L
 It then compares the rating devised by this algorithm and finds the restaurant with the highest score<br>
 Returns the location to the user and directions based on the user's location<br>
 
-
-
-
+<a href="https://play.google.com/store/apps/details?id=com.serendipity"><strong>Android App</strong></a>
