@@ -11,7 +11,13 @@
 @implementation Constants
 
 NSString * const IWFontName = @"Helvetica-Light";
+NSString * const IWItalicFontName = @"Helvetica-LightOblique";
+
 const NSInteger IWFontSize = 55;
-const NSInteger buttonSize = 120;
+const NSInteger IWGoButtonSize = 120;
+const NSInteger IWCancelButtonSize = 80;
+const CGFloat IWTimeoutTime = 60.0f;
+
+NSString * const IWStopQuestionErrorDomain = @"IWStopQuestionErrorDomain";
 
 @end

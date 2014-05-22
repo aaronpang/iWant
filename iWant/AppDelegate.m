@@ -9,7 +9,9 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    RootViewController *_rootViewController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -18,8 +20,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    RootViewController *rootViewController = [[RootViewController alloc] init];
-    [self.window setRootViewController:rootViewController];
+    _rootViewController = [[RootViewController alloc] init];
+    [self.window setRootViewController:_rootViewController];
 
     return YES;
 }
@@ -38,7 +40,9 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    if (_rootViewController) {
+        [_rootViewController determineBackgroundToShow];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

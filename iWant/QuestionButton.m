@@ -16,16 +16,16 @@
 {
     self = [super init];
     if (self) {
-        self.layer.cornerRadius = buttonSize / 2.0f;
+        self.layer.cornerRadius = IWGoButtonSize / 2.0f;
         self.layer.shadowColor = [UIColor whiteColor].CGColor;
         self.layer.shadowOpacity = 0.5f;
         self.layer.shadowRadius = 10.f;
         self.backgroundColor = [UIColor whiteColor];
         
         [self setTitle:@"GO" forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [self.titleLabel setFont:[UIFont fontWithName:@"Helvetica-LightOblique" size:25]];
+        [self.titleLabel setFont:[UIFont fontWithName:IWItalicFontName size:25]];
         
+        [self setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     }
     return self;
@@ -40,13 +40,5 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

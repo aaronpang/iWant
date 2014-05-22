@@ -10,6 +10,8 @@
 	<string>iWant</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>210030B0-3EB6-4DFA-84A8-F302AAEDE46E</key>
+		<string>https://github.com/jdg/oauthconsumer.git</string>
 		<key>E99A2871-0E5C-4ABA-9029-43FACCBBFA96</key>
 		<string>ssh://github.com/aaronpang/iWant.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>iWant.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>210030B0-3EB6-4DFA-84A8-F302AAEDE46E</key>
+		<string>../../iWant/oauthconsumer</string>
 		<key>E99A2871-0E5C-4ABA-9029-43FACCBBFA96</key>
 		<string>../..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>E99A2871-0E5C-4ABA-9029-43FACCBBFA96</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iWant</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>210030B0-3EB6-4DFA-84A8-F302AAEDE46E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>oauthconsumer</string>
 		</dict>
 	</array>
 </dict>

@@ -11,7 +11,20 @@
 @interface Constants : NSObject
 
 extern NSString * const IWFontName;
+extern NSString * const IWItalicFontName;
+
 extern const NSInteger IWFontSize;
-extern const NSInteger buttonSize;
+extern const NSInteger IWGoButtonSize;
+extern const NSInteger IWCancelButtonSize;
+extern const CGFloat IWTimeoutTime;
+
+extern NSString * const IWStopQuestionErrorDomain;
+
+typedef enum {
+    kStopQuestionLoadingLocationErrorCode,
+    kStopQuestionNoResultsErrorCode,
+    kStopQuestionConnectionErrorCode,
+    kStopQuestionTimeout
+}IWStopQuestionErrorCode;
 
 @end

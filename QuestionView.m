@@ -26,6 +26,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
          // Create the iWant label at the top
         _iWantLabel = [[UILabel alloc] init];
         _iWantLabel.font = [UIFont fontWithName:IWFontName size:IWFontSize];
@@ -74,12 +75,16 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-132-[_periodLabel]" options:0 metrics:nil views:viewsDictionary]];
         
         // Center the button
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_goButton(==buttonWidth)]" options:0 metrics:@{@"buttonWidth":@(buttonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[_goButton(==buttonWidth)]" options:0 metrics:@{@"buttonWidth":@(IWGoButtonSize)} views:viewsDictionary]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_goButton attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_goButton(==buttonHeight)]-70-|" options:0 metrics:@{@"buttonHeight":@(buttonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_goButton(==buttonHeight)]-70-|" options:0 metrics:@{@"buttonHeight":@(IWGoButtonSize)} views:viewsDictionary]];
 
     }
     return self;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [_iWantTextField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -88,18 +93,13 @@
 }
 
 - (void)goButtonPressed:(id)sender {
-    NSLog(@"GO");
+    [self.delegate askQuestion];
+}
+
+- (NSString *)searchTerm {
+    return _iWantTextField.text;
 }
 
 
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

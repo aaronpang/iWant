@@ -10,4 +10,14 @@
 
 @interface QuestionView : UIView
 
+@property (nonatomic, weak)id delegate;
+
+- (NSString *)searchTerm;
+
+@end
+
+@protocol QuestionViewDelegate
+
+- (void)askQuestion;
+
 @end
