@@ -3,6 +3,8 @@ iWant
 
 Don't know where to eat? Don't know where to get your nails done? iWant is the perfect solution. This simple app determines the best possible location using the Yelp API and MapKit and gives you directions on how to get there.
 
+<a href="https://play.google.com/store/apps/details?id=com.serendipity"><strong>Download the Android App Here!</strong></a>
+
 ![Gif-2](http://i.imgur.com/4KJmgQr.gif)
 ![Gif-1](http://i.imgur.com/FsnFWOJ.gif4KJmgQr)
 
@@ -13,4 +15,4 @@ It then uses a formula based on diminishing returns taking into account Price, L
 It then compares the rating devised by this algorithm and finds the restaurant with the highest score<br>
 Returns the location to the user and directions based on the user's location<br>
 
-<a href="https://play.google.com/store/apps/details?id=com.serendipity"><strong>Android App</strong></a>
+
