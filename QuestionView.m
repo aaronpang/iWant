@@ -40,7 +40,7 @@
         _iWantTextField = [[UITextField alloc] init];
         _iWantTextField.backgroundColor = [UIColor clearColor];
         _iWantTextField.textAlignment = NSTextAlignmentLeft;
-        _iWantTextField.font = [UIFont fontWithName:IWFontName size:IWFontSize - 10];
+        _iWantTextField.font = [UIFont fontWithName:IWFontName size:IWFontSize - 15];
         _iWantTextField.textColor = [UIColor whiteColor];
         _iWantTextField.delegate = self;
         _iWantTextField.translatesAutoresizingMaskIntoConstraints = NO;

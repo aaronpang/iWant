@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/SearchController.m"
-            timestampString = "422369800.710792"
+            timestampString = "422541837.159779"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "-determineValidResult:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/RootViewController.m"
-            timestampString = "422369899.691705"
+            timestampString = "422674101.582908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "-stopAnimatingBackground"
             landmarkType = "5">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/RootViewController.m"
-            timestampString = "422369899.691705"
+            timestampString = "422674101.582908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "-presentLoadingView"
             landmarkType = "5">
          </BreakpointContent>
@@ -68,13 +68,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/RootViewController.m"
-            timestampString = "422237341.115208"
+            timestampString = "422674101.582908"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "-stopAskQuestionWithError:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RootViewController stopAskQuestionWithError:]"
+                  moduleName = "iWant"
+                  urlString = "file:///Users/pango/Desktop/iWant/iWant/RootViewController.m"
+                  timestampString = "422671565.81739"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "619">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[RootViewController stopAskQuestionWithError:]"
+                  moduleName = "iWant"
+                  urlString = "file:///Users/pango/Desktop/iWant/iWant/RootViewController.m"
+                  timestampString = "422671565.817806"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "160"
+                  endingLineNumber = "160"
+                  offsetFromSymbolStart = "643">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

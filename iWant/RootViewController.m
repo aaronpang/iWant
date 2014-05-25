@@ -21,7 +21,7 @@
 
 const CGFloat questionViewZoomAnimateDuration = 0.35f;
 const CGFloat questionViewZoomScale = 1.5f;
-const CGFloat backgroundScaleFactor = 5.0f;
+const CGFloat backgroundScaleFactor = 3.5;
 const CGFloat sunriseHour = 6.5;
 const CGFloat sunsetHour = 20;
 
@@ -35,6 +35,9 @@ const CGFloat sunsetHour = 20;
     QuestionView *_questionView;
     ResultView *_resultView;
     SearchController *_searchController;
+    
+    BOOL _dogeMode;
+    NSTimer *_dogeDisplayTimer;
 }
 
 - (id)init
@@ -73,6 +76,11 @@ const CGFloat sunsetHour = 20;
 }
 
 - (void)determineBackgroundToShow {
+    
+    if (_dogeMode) {
+        _backgroundImageView.image = [UIImage imageNamed:@"bg_doge.png"];
+        return;
+    }
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
     NSInteger currentHour = [components hour];
     
@@ -84,18 +92,66 @@ const CGFloat sunsetHour = 20;
     }
 }
 
+- (void)enterDogeMode {
+    _dogeMode = YES;
+    [self determineBackgroundToShow];
+}
+
+- (void)startDisplayingDogeThings {
+    _dogeDisplayTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(displayDogeLabel:) userInfo:nil repeats:YES];
+}
+
+- (void)stopDisplayingDogeThings {
+    [_dogeDisplayTimer invalidate];
+    _dogeDisplayTimer = nil;
+}
+
+- (void)displayDogeLabel:(id)object {
+    __block UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    NSArray *dogePhrases = @[@"Wow.", @"Such Search", @"Very Search", @"Very Wow."];
+    NSArray *dogeColours = @[[UIColor redColor], [UIColor blueColor], [UIColor orangeColor], [UIColor yellowColor], [UIColor greenColor]];
+    
+    label.text = dogePhrases[rand() % [dogePhrases count]];
+    label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:30];
+    label.textColor = dogeColours[rand() % [dogeColours count]];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor clearColor];
+    [label sizeToFit];
+    CGFloat randomX = fmodf(rand(), [UIScreen mainScreen].applicationFrame.size.width - label.frame.size.width);
+    CGFloat randomY = fmodf(rand(), [UIScreen mainScreen].applicationFrame.size.height - label.frame.size.height);
+    label.frame = (CGRect){.size = label.frame.size, .origin={randomX ,randomY}};
+    
+    [UIView animateWithDuration:2.0f  delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        label.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [label removeFromSuperview];
+        label = nil;
+    }];
+    [_loadingView addSubview:label];
+}
+
 #pragma mark - View Delegates
 
 - (void)askQuestion {
     [self dismissQuestionView];
     [self presentLoadingView];
+    if ([[[_questionView searchTerm] lowercaseString] isEqualToString:@"doge"]) {
+        [self enterDogeMode];
+    }
+    if (_dogeMode) {
+        [self startDisplayingDogeThings];
+    }
     [_searchController beginSearchWithTerm:[_questionView searchTerm]];
 }
 
 - (void)stopAskQuestion {
     [self dismissLoadingView];
     [self presentQuestionView];
+    if (_dogeMode) {
+        [self stopDisplayingDogeThings];
+    }
     [_searchController cancelSearch];
+    
 }
 
 #pragma mark - Search Controller Delegates

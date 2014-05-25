@@ -44,15 +44,13 @@
         
         // Layout the spinner
         [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_spinnerView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_spinnerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_spinnerView(==spinnerWidth)]" options:0 metrics:@{@"spinnerWidth":@(spinnerSize)} views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_spinnerView(==spinnerHeight)]" options:0 metrics:@{@"spinnerHeight":@(spinnerSize)} views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-136-[_spinnerView(==spinnerHeight)]" options:0 metrics:@{@"spinnerHeight":@(spinnerSize)} views:views]];
 
         // Layout the thinking label
         [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_thinkingLabel attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_thinkingLabel attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_thinkingLabel(>=0)]" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_thinkingLabel(>=0)]" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-200-[_thinkingLabel(>=0)]" options:0 metrics:nil views:views]];
         
         // Layout the cancel button
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_loadingCancelButton(==buttonHeight)]-60-|" options:0 metrics:@{@"buttonHeight":@(IWCancelButtonSize)} views:views]];

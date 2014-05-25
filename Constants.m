@@ -10,8 +10,8 @@
 
 @implementation Constants
 
-NSString * const IWFontName = @"Helvetica-Light";
-NSString * const IWItalicFontName = @"Helvetica-LightOblique";
+NSString * const IWFontName = @"HelveticaNeue-Light";
+NSString * const IWItalicFontName = @"HelveticaNeue-LightItalic";
 
 const NSInteger IWFontSize = 55;
 const NSInteger IWGoButtonSize = 120;

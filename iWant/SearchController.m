@@ -94,9 +94,6 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    if (connection != _businessSearchConnection) {
-        NSLog(@"WHAT THE FUCK");
-    }
     _businessSearchConnection = nil;
     _validRestaurants = [NSMutableSet set];
     NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:_responseData options:NSJSONReadingAllowFragments error:nil];
@@ -212,6 +209,7 @@
     NSDateComponents *currentComponents = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
     NSString *timeQueryString = @"//table[@class='table table-simple hours-table']/tbody";
     NSArray *timeNode = [parser searchWithXPathQuery:timeQueryString];
+    
     // Assume the place is closed between 9 PM and 9 AM
     CGFloat hoursUntilClose = [currentComponents hour] > 21 || [currentComponents hour] < 9 ? 0 : 0.5;
     if ([timeNode count]) {
@@ -274,7 +272,8 @@
     
 
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    [geoCoder geocodeAddressString:[NSString stringWithFormat:@"%@, %@, %@", business[@"location"][@"address"], business[@"location"][@"city"], business[@"location"][@"country_code"]] completionHandler:^(NSArray *placemarks, NSError *error) {
+    NSString *geoLocation = [NSString stringWithFormat:@"%@, %@, %@", business[@"location"][@"address"][0], business[@"location"][@"city"], business[@"location"][@"country_code"]];
+    [geoCoder geocodeAddressString:geoLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         if (![placemarks count] || error) {
             return;
         }
