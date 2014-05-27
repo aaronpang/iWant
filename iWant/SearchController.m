@@ -156,15 +156,9 @@
         businessRanks [business] = @(totalRating);
     }
     
-    // Find the highest rated business
-    NSDictionary *highestRatedBusiness = nil;
-    for (NSDictionary *business in businessRanks) {
-        if ([businessRanks[business] floatValue] > [businessRanks[highestRatedBusiness] floatValue] ) {
-            highestRatedBusiness = business;
-        }
-    }
+
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self.delegate stopAskQuestionWithResult:highestRatedBusiness];
+    [self.delegate stopAskQuestionWithResult:[businessRanks copy]];
 
 }
 
@@ -286,6 +280,10 @@
         newBusiness[@"location"] = locationDictionary;
         newBusiness[@"price"] = price;
         newBusiness[@"hoursUntilClose"] = @(hoursUntilClose);
+        NSMutableDictionary *myLocationDictionary = [[NSMutableDictionary alloc]init];
+        myLocationDictionary[@"latitude"] =  @(_location.coordinate.latitude);
+        myLocationDictionary[@"longitude"] = @(_location.coordinate.longitude);
+        newBusiness[@"currentLocation"] = myLocationDictionary;
         if (!_opQueue) {
             return;
         }

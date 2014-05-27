@@ -10,4 +10,15 @@
 
 @interface ResultView : UIView
 
+@property (nonatomic, weak) id delegate;
+
+- (void)setViewInformation:(id)business;
+
+
+@end
+
+@protocol ResultViewDelegate
+
+-(void)closeResultView;
+
 @end

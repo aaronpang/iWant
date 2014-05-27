@@ -10,6 +10,8 @@
 		D8266F5919231A3600AB95B6 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = D8266F5419231A3600AB95B6 /* TFHpple.m */; };
 		D8266F5A19231A3600AB95B6 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = D8266F5619231A3600AB95B6 /* TFHppleElement.m */; };
 		D8266F5B19231A3600AB95B6 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = D8266F5819231A3600AB95B6 /* XPathQuery.m */; };
+		D8296A5F193444920076642E /* IWButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D8296A5E193444920076642E /* IWButton.m */; };
+		D8296A6319344E5E0076642E /* ResultButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D8296A6219344E5E0076642E /* ResultButton.m */; };
 		D85D5663190F38A0000F1729 /* QuestionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D85D5662190F38A0000F1729 /* QuestionButton.m */; };
 		D85D56671910BC09000F1729 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85D56661910BC09000F1729 /* LoadingView.m */; };
 		D85D566B1911531A000F1729 /* LoadingCancelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D85D566A1911531A000F1729 /* LoadingCancelButton.m */; };
@@ -64,6 +66,10 @@
 		D8266F5619231A3600AB95B6 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
 		D8266F5719231A3600AB95B6 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		D8266F5819231A3600AB95B6 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		D8296A5D193444920076642E /* IWButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IWButton.h; path = ../IWButton.h; sourceTree = "<group>"; };
+		D8296A5E193444920076642E /* IWButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IWButton.m; path = ../IWButton.m; sourceTree = "<group>"; };
+		D8296A6119344E5E0076642E /* ResultButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultButton.h; sourceTree = "<group>"; };
+		D8296A6219344E5E0076642E /* ResultButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultButton.m; sourceTree = "<group>"; };
 		D85D5661190F38A0000F1729 /* QuestionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionButton.h; sourceTree = "<group>"; };
 		D85D5662190F38A0000F1729 /* QuestionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionButton.m; sourceTree = "<group>"; };
 		D85D56651910BC09000F1729 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
@@ -155,6 +161,19 @@
 			name = HTMLParsing;
 			sourceTree = "<group>";
 		};
+		D8296A6019344DF80076642E /* Result View */ = {
+			isa = PBXGroup;
+			children = (
+				D8F4C760192CDD4400610A2D /* ResultView.h */,
+				D8F4C761192CDD4400610A2D /* ResultView.m */,
+				D8296A6119344E5E0076642E /* ResultButton.h */,
+				D8296A6219344E5E0076642E /* ResultButton.m */,
+				D8296A5D193444920076642E /* IWButton.h */,
+				D8296A5E193444920076642E /* IWButton.m */,
+			);
+			name = "Result View";
+			sourceTree = "<group>";
+		};
 		D85D56641910B842000F1729 /* Question View */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,8 +256,7 @@
 				E31981DD190AFDC200A9389F /* RootViewController.m */,
 				D85D566C191165B5000F1729 /* SearchController.h */,
 				D85D566D191165B5000F1729 /* SearchController.m */,
-				D8F4C760192CDD4400610A2D /* ResultView.h */,
-				D8F4C761192CDD4400610A2D /* ResultView.m */,
+				D8296A6019344DF80076642E /* Result View */,
 				D8266F521923199B00AB95B6 /* HTMLParsing */,
 				D85D56641910B842000F1729 /* Question View */,
 				D85D56681910D0DF000F1729 /* LoadingView */,
@@ -394,8 +412,10 @@
 				D85D56671910BC09000F1729 /* LoadingView.m in Sources */,
 				E31981ED190B2E2200A9389F /* QuestionView.m in Sources */,
 				D8266F5919231A3600AB95B6 /* TFHpple.m in Sources */,
+				D8296A5F193444920076642E /* IWButton.m in Sources */,
 				E31981BE190AFC2500A9389F /* AppDelegate.m in Sources */,
 				E31981BA190AFC2500A9389F /* main.m in Sources */,
+				D8296A6319344E5E0076642E /* ResultButton.m in Sources */,
 				D85D566E191165B5000F1729 /* SearchController.m in Sources */,
 				E31981DE190AFDC200A9389F /* RootViewController.m in Sources */,
 				D8266F5B19231A3600AB95B6 /* XPathQuery.m in Sources */,

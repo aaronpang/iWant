@@ -21,7 +21,7 @@
 
 const CGFloat questionViewZoomAnimateDuration = 0.35f;
 const CGFloat questionViewZoomScale = 1.5f;
-const CGFloat backgroundScaleFactor = 3.5;
+const CGFloat backgroundScaleFactor = 5.0f;
 const CGFloat sunriseHour = 6.5;
 const CGFloat sunsetHour = 20;
 
@@ -35,9 +35,6 @@ const CGFloat sunsetHour = 20;
     QuestionView *_questionView;
     ResultView *_resultView;
     SearchController *_searchController;
-    
-    BOOL _dogeMode;
-    NSTimer *_dogeDisplayTimer;
 }
 
 - (id)init
@@ -64,6 +61,12 @@ const CGFloat sunsetHour = 20;
         _questionView.userInteractionEnabled = YES;
         [self.view addSubview:_questionView];
         
+        _resultView = [[ResultView alloc] initWithFrame:_rootView.bounds];
+        _resultView.alpha = 0.0f;
+        _resultView.userInteractionEnabled = NO;
+        _resultView.delegate = self;
+        [self.view addSubview:_resultView];
+        
         _searchController = [[SearchController alloc] init];
         _searchController.delegate = self;
         
@@ -76,11 +79,6 @@ const CGFloat sunsetHour = 20;
 }
 
 - (void)determineBackgroundToShow {
-    
-    if (_dogeMode) {
-        _backgroundImageView.image = [UIImage imageNamed:@"bg_doge.png"];
-        return;
-    }
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
     NSInteger currentHour = [components hour];
     
@@ -92,66 +90,23 @@ const CGFloat sunsetHour = 20;
     }
 }
 
-- (void)enterDogeMode {
-    _dogeMode = YES;
-    [self determineBackgroundToShow];
-}
-
-- (void)startDisplayingDogeThings {
-    _dogeDisplayTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(displayDogeLabel:) userInfo:nil repeats:YES];
-}
-
-- (void)stopDisplayingDogeThings {
-    [_dogeDisplayTimer invalidate];
-    _dogeDisplayTimer = nil;
-}
-
-- (void)displayDogeLabel:(id)object {
-    __block UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    NSArray *dogePhrases = @[@"Wow.", @"Such Search", @"Very Search", @"Very Wow."];
-    NSArray *dogeColours = @[[UIColor redColor], [UIColor blueColor], [UIColor orangeColor], [UIColor yellowColor], [UIColor greenColor]];
-    
-    label.text = dogePhrases[rand() % [dogePhrases count]];
-    label.font = [UIFont fontWithName:@"MarkerFelt-Thin" size:30];
-    label.textColor = dogeColours[rand() % [dogeColours count]];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
-    [label sizeToFit];
-    CGFloat randomX = fmodf(rand(), [UIScreen mainScreen].applicationFrame.size.width - label.frame.size.width);
-    CGFloat randomY = fmodf(rand(), [UIScreen mainScreen].applicationFrame.size.height - label.frame.size.height);
-    label.frame = (CGRect){.size = label.frame.size, .origin={randomX ,randomY}};
-    
-    [UIView animateWithDuration:2.0f  delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-        label.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-        [label removeFromSuperview];
-        label = nil;
-    }];
-    [_loadingView addSubview:label];
-}
-
 #pragma mark - View Delegates
 
 - (void)askQuestion {
     [self dismissQuestionView];
     [self presentLoadingView];
-    if ([[[_questionView searchTerm] lowercaseString] isEqualToString:@"doge"]) {
-        [self enterDogeMode];
-    }
-    if (_dogeMode) {
-        [self startDisplayingDogeThings];
-    }
     [_searchController beginSearchWithTerm:[_questionView searchTerm]];
 }
 
 - (void)stopAskQuestion {
     [self dismissLoadingView];
     [self presentQuestionView];
-    if (_dogeMode) {
-        [self stopDisplayingDogeThings];
-    }
     [_searchController cancelSearch];
-    
+}
+
+- (void)closeResultView {
+    [self presentQuestionView];
+    [self dismissResultView];
 }
 
 #pragma mark - Search Controller Delegates
@@ -186,18 +141,30 @@ const CGFloat sunsetHour = 20;
 }
 
 - (void)stopAskQuestionWithResult:(id)result {
-    [self stopAskQuestion];
-    NSDictionary *business = result;
-    
-    // Open up the Map
-    CGFloat businessLatitude = [business[@"location"][@"latitude"] floatValue];
-    CGFloat businessLongitude = [business[@"location"][@"longitude"] floatValue];
-    CLLocation *fromLocation = [[CLLocation alloc] initWithLatitude:_searchController.getCurrentCoordinate.latitude longitude:_searchController.getCurrentCoordinate.longitude];
-    CLLocation *toLocation = [[CLLocation alloc] initWithLatitude:businessLatitude longitude:businessLongitude];
-    MKMapItem *from = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc]initWithCoordinate:fromLocation.coordinate addressDictionary:nil]];
-    MKMapItem *to = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc]initWithCoordinate:toLocation.coordinate addressDictionary:nil]];
-    to.name = business[@"name"];
-    [MKMapItem openMapsWithItems:@[from, to] launchOptions:@{MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeWalking}];
+    NSDictionary *businessRanks = result;
+    [self dismissLoadingView];
+    [self presentResultViewWithResult:businessRanks];
+    [_searchController cancelSearch];
+}
+
+- (void)presentResultViewWithResult:(id)result {
+    NSDictionary *businessRanks = result;
+    [_resultView setViewInformation:businessRanks];
+    // Animate the question view out
+    [UIView animateWithDuration:questionViewZoomAnimateDuration delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        _resultView.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        _resultView.userInteractionEnabled = YES;
+    }];
+}
+
+- (void)dismissResultView {
+    _resultView.userInteractionEnabled = NO;
+    // Animate the question view out
+    [UIView animateWithDuration:questionViewZoomAnimateDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+        _resultView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)dismissQuestionView {

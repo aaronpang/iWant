@@ -16,6 +16,7 @@ NSString * const IWItalicFontName = @"HelveticaNeue-LightItalic";
 const NSInteger IWFontSize = 55;
 const NSInteger IWGoButtonSize = 120;
 const NSInteger IWCancelButtonSize = 80;
+const NSInteger IWResultButtonSize = 90;
 const CGFloat IWTimeoutTime = 60.0f;
 
 NSString * const IWStopQuestionErrorDomain = @"IWStopQuestionErrorDomain";

@@ -16,6 +16,7 @@ extern NSString * const IWItalicFontName;
 extern const NSInteger IWFontSize;
 extern const NSInteger IWGoButtonSize;
 extern const NSInteger IWCancelButtonSize;
+extern const NSInteger IWResultButtonSize;
 extern const CGFloat IWTimeoutTime;
 
 extern NSString * const IWStopQuestionErrorDomain;
