@@ -149,7 +149,9 @@ const CGFloat sunsetHour = 20;
 
 - (void)presentResultViewWithResult:(id)result {
     NSDictionary *businessRanks = result;
-    [_resultView setViewInformation:businessRanks];
+    [_resultView resetMapPosition];
+    [_resultView setBusinesses:businessRanks];
+    [_resultView setViewInformation];
     // Animate the question view out
     [UIView animateWithDuration:questionViewZoomAnimateDuration delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
         _resultView.alpha = 1.0f;

@@ -30,6 +30,8 @@
         
         [self setTitleColor:_fontColor forState:UIControlStateNormal];
         [self setTitleColor:_backgroundColor forState:UIControlStateHighlighted];
+        
+        self.titleLabel.adjustsFontSizeToFitWidth = YES;
     }
     return self;
 }

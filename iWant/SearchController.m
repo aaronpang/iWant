@@ -205,7 +205,7 @@
     NSArray *timeNode = [parser searchWithXPathQuery:timeQueryString];
     
     // Assume the place is closed between 9 PM and 9 AM
-    CGFloat hoursUntilClose = [currentComponents hour] > 21 || [currentComponents hour] < 9 ? 0 : 0.5;
+    CGFloat hoursUntilClose = [currentComponents hour] > 21 || [currentComponents hour] < 10 ? 0 : 0.5;
     if ([timeNode count]) {
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
@@ -224,6 +224,8 @@
             openString = [openString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             if (![openString isEqualToString:@"Closed"]) {
                 hoursUntilClose = 24;
+            } else {
+                hoursUntilClose = 0;
             }
         } else if ([openArray count] >= 1 ) {
             
@@ -246,6 +248,8 @@
             
             if (newCurrentTimeInHours >= newOpenTimeInHours && newCurrentTimeInHours <= newClosingTimeInHours) {
                 hoursUntilClose = newClosingTimeInHours - newCurrentTimeInHours;
+            } else {
+                hoursUntilClose = 0;
             }
 
         }

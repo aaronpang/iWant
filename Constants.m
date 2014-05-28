@@ -17,7 +17,7 @@ const NSInteger IWFontSize = 55;
 const NSInteger IWGoButtonSize = 120;
 const NSInteger IWCancelButtonSize = 80;
 const NSInteger IWResultButtonSize = 90;
-const CGFloat IWTimeoutTime = 60.0f;
+const CGFloat IWTimeoutTime = 6000.0f;
 
 NSString * const IWStopQuestionErrorDomain = @"IWStopQuestionErrorDomain";
 

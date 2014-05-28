@@ -24,8 +24,10 @@ const NSInteger metersPerMile = 1609.344;
     IWButton *_viewOnYelpButton;
     UIButton *_yesButton;
     UIButton *_noButton;
+    UIButton *_anotherButton;
     
     NSDictionary *_business;
+    NSDictionary *_businessRanks;
     NSString *_urlString;
 }
 
@@ -54,6 +56,7 @@ const NSInteger metersPerMile = 1609.344;
         _mapView.scrollEnabled = NO;
         _mapView.rotateEnabled = NO;
         _mapView.pitchEnabled = NO;
+        _mapView.layer.cornerRadius = 5.0f;
         [self addSubview:_mapView];
         
         _viewOnYelpButton = [IWButton buttonWithType:UIButtonTypeRoundedRect];
@@ -93,8 +96,15 @@ const NSInteger metersPerMile = 1609.344;
         _noButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_noButton];
         
+        
+        _anotherButton = [[ResultButton alloc] initWithBackgroundColor:[UIColor colorWithRed:0xe3/255.f green:0x9c/255.f blue:0x11/255.f alpha:1] fontColor:[UIColor whiteColor] title:@"MORE"];
+        [_anotherButton addTarget:self action:@selector(anotherButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        _anotherButton.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_anotherButton];
+        
+        
         // Add the constraints
-        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_titleLabel, _mapView, _viewOnYelpButton, _ratingLabel, _priceLabel, _yesButton, _noButton);
+        NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_titleLabel, _mapView, _viewOnYelpButton, _ratingLabel, _priceLabel, _yesButton, _noButton, _anotherButton);
 
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[_titleLabel(>=0)]-5-[_ratingLabel(>=0)]-5-[_mapView(==180)]-10-[_viewOnYelpButton(==50)]" options:0 metrics:nil views:viewsDictionary]];
@@ -104,24 +114,38 @@ const NSInteger metersPerMile = 1609.344;
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_viewOnYelpButton(>=0)]-10-|" options:0 metrics:nil views:viewsDictionary]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_ratingLabel(>=0)]-[_priceLabel(>=0)]-10-|" options:0 metrics:nil views:viewsDictionary]];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_noButton(==buttonWidth)]-(>=0)-[_yesButton(==buttonWidth)]-40-|" options:0 metrics:@{@"buttonWidth":@(IWResultButtonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_noButton(==buttonWidth)]-16-[_anotherButton(==buttonWidth)]-(>=0)-[_yesButton(==buttonWidth)]-10-|" options:0 metrics:@{@"buttonWidth":@(IWResultButtonSize)} views:viewsDictionary]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_yesButton(==buttonHeight)]-30-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_noButton(==buttonHeight)]-30-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_anotherButton(==buttonHeight)]-30-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
     
     }
     return self;
 }
 
-- (void)setViewInformation:(id)business {
-    _business = business;
-    _titleLabel.text = _business[@"name"];
-    
+- (void)setBusinesses:(id)result {
+    _businessRanks = (NSDictionary *)result;
+    // Find the highest rated business
+    NSDictionary *highestRatedBusiness = nil;
+    for (NSDictionary *business in _businessRanks) {
+        if ([_businessRanks[business] floatValue] > [_businessRanks[highestRatedBusiness] floatValue] ) {
+            highestRatedBusiness = business;
+        }
+    }
+    _business = highestRatedBusiness;
+}
+
+- (void)resetMapPosition {
     // Clear anything shown on the map before
     MKCoordinateRegion region = MKCoordinateRegionMake(_mapView.centerCoordinate, MKCoordinateSpanMake(180, 360));
     [_mapView setRegion:region animated:NO];
-    [_mapView removeAnnotations:_mapView.annotations];
+}
+
+- (void)setViewInformation {
+    _titleLabel.text = _business[@"name"];
     
+    [_mapView removeAnnotations:_mapView.annotations];
     // Display the location on the map
     CGFloat latitude = [_business[@"location"][@"latitude"] floatValue];
     CGFloat longitude = [_business[@"location"][@"longitude"] floatValue];
@@ -177,6 +201,30 @@ const NSInteger metersPerMile = 1609.344;
     to.name = _business[@"name"];
     [MKMapItem openMapsWithItems:@[from, to] launchOptions:@{MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeWalking}];
 
+}
+
+- (void)anotherButtonPressed:(id)sender {
+    if ([_businessRanks count] <= 1) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No More Choices" message:@"There are no more choices for your search term" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    NSMutableDictionary *businessRanksMutable = [_businessRanks mutableCopy];
+    [businessRanksMutable removeObjectForKey:_business];
+    _businessRanks = [businessRanksMutable copy];
+    _business = nil;
+    [self setBusinesses:_businessRanks];
+    [self setViewInformation];
+    _titleLabel.alpha = 0.0f;
+    _priceLabel.alpha = 0.0f;
+    _ratingLabel.alpha = 0.0f;
+    _viewOnYelpButton
+    [UIView animateWithDuration:0.5f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        _titleLabel.alpha = 1.0f;
+        _priceLabel.alpha = 1.0f;
+        _ratingLabel.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)yelpButtonPressed:(id)sender {

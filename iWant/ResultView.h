@@ -12,7 +12,9 @@
 
 @property (nonatomic, weak) id delegate;
 
-- (void)setViewInformation:(id)business;
+- (void)setBusinesses:(id)result;
+- (void)setViewInformation;
+- (void)resetMapPosition;
 
 
 @end
