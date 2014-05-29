@@ -15,6 +15,7 @@
 - (void)setBusinesses:(id)result;
 - (void)setViewInformation;
 - (void)resetMapPosition;
+- (void)clearLeftOverBusinesses;
 
 
 @end

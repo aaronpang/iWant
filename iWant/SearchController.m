@@ -17,6 +17,13 @@
 @interface SearchController () <NSURLConnectionDelegate, CLLocationManagerDelegate>
 @end
 
+const NSInteger defaultOpeningTimeInHours = 10;
+const NSInteger defaultClosingTimeInHours = 21;
+
+const CGFloat maximumPrice = 2;
+const CGFloat minimumRating = 3.5;
+const CGFloat minimumHoursUntilClosing = 0.5;
+
 @implementation SearchController {
     NSMutableData *_responseData;
     CLLocationManager *_locationManager;
@@ -58,7 +65,7 @@
 
 - (void)startYelpSearch {
     if (!_searchTerm) {
-        _searchTerm = @"restaurants";
+        _searchTerm = IWDefaultSearchTerm;
     }
 //    _location = [[CLLocation alloc] initWithLatitude:43.657323 longitude:-79.3891645];
     NSString *searchString = [NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=%@&ll=%f,%f", _searchTerm, _location.coordinate.latitude, _location.coordinate.longitude];
@@ -116,7 +123,12 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (_opQueue == object && [keyPath isEqualToString:@"operations"]) {
         if (_opQueue.operationCount == 0) {
-            if (![_validRestaurants count]) {
+            if (!_validRestaurants) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+                    [self.delegate stopAskQuestionWithError:[NSError errorWithDomain:IWStopQuestionErrorDomain code:kStopQuestionConnectionErrorCode userInfo:nil]];
+                });
+            } else if (![_validRestaurants count]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [NSObject cancelPreviousPerformRequestsWithTarget:self];
                     [self.delegate stopAskQuestionWithError:[NSError errorWithDomain:IWStopQuestionErrorDomain code:kStopQuestionNoResultsErrorCode userInfo:nil]];
@@ -126,7 +138,6 @@
                     [self determineBestResult:[_validRestaurants copy]];
                 });
             }
-
         }
     }
 }
@@ -138,7 +149,7 @@
         CLLocationCoordinate2D businessLocation = CLLocationCoordinate2DMake([business[@"location"][@"latitude"] doubleValue], [business[@"location"][@"longitude"] doubleValue]);
         CLLocationCoordinate2D userLocation = _location.coordinate;
         CLLocationDistance distanceInMeters = MKMetersBetweenMapPoints(MKMapPointForCoordinate(userLocation), MKMapPointForCoordinate(businessLocation));
-        CGFloat distanceInMiles = distanceInMeters / 1609.344;
+        CGFloat distanceInMiles = distanceInMeters / IWMetersPerMile;
         CGFloat distanceRating = (1 / (distanceInMiles * 4 + 1)) * 0.74;
         
         CGFloat hoursUntilClose = [business[@"hoursUntilClose"] floatValue];
@@ -204,8 +215,8 @@
     NSString *timeQueryString = @"//table[@class='table table-simple hours-table']/tbody";
     NSArray *timeNode = [parser searchWithXPathQuery:timeQueryString];
     
-    // Assume the place is closed between 9 PM and 9 AM
-    CGFloat hoursUntilClose = [currentComponents hour] > 21 || [currentComponents hour] < 10 ? 0 : 0.5;
+    // Assume the place is closed between two defined hours
+    CGFloat hoursUntilClose = [currentComponents hour] > defaultClosingTimeInHours || [currentComponents hour] < defaultOpeningTimeInHours ? 0 : minimumHoursUntilClosing;
     if ([timeNode count]) {
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
@@ -214,18 +225,20 @@
         
         TFHppleElement *dayElement = timeNode[0];
         NSArray *tableBody = dayElement.children;
-        TFHppleElement *tableElement = tableBody [weekday * 2 + 1];
+        NSInteger dayKey = [tableBody count] == 7 ? weekday : weekday * 2 + 1;
+        TFHppleElement *tableElement = tableBody [dayKey];
         NSArray *tableCell = tableElement.children;
-        TFHppleElement *openElement = tableCell[3];
+        NSInteger openKey = [tableCell count] == 7 ? 3 : 2;;
+        TFHppleElement *openElement = tableCell[openKey];
         NSArray *openArray = openElement.children;
         // If the array has only one element in it, it means it's closed
         if ([openArray count] == 1) {
             NSString *openString = ((TFHppleElement *)openArray[0]).content;
             openString = [openString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            if (![openString isEqualToString:@"Closed"]) {
-                hoursUntilClose = 24;
-            } else {
+            if ([openString isEqualToString:@"Closed"]) {
                 hoursUntilClose = 0;
+            } else {
+                hoursUntilClose = 24;
             }
         } else if ([openArray count] >= 1 ) {
             
@@ -258,13 +271,13 @@
     CGFloat rating = [business[@"rating"] floatValue];
     
     // Determine if it is a valid result or not
-    if (![price isEqual:@"$"] && ![price isEqual:@"$$"]) {
+    if (price.length > maximumPrice) {
         return;
     }
-    if (rating < 3.5) {
+    if (rating < minimumRating) {
         return;
     }
-    if (hoursUntilClose < 0.5) {
+    if (hoursUntilClose < minimumHoursUntilClosing) {
         return;
     }
     

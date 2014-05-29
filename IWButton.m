@@ -25,7 +25,11 @@
     }
     else {
         self.backgroundColor = [UIColor clearColor];
-        self.titleLabel.textColor = [UIColor whiteColor];
+        if (kCFCoreFoundationVersionNumber <= kCFCoreFoundationVersionNumber_iOS_6_1) {
+            self.titleLabel.textColor = [UIColor blackColor];
+        } else {
+            self.titleLabel.textColor = [UIColor whiteColor];
+        }
     }
 }
 

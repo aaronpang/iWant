@@ -12,7 +12,13 @@
 
 extern NSString * const IWFontName;
 extern NSString * const IWItalicFontName;
+extern NSString * const IWDogeFontName;
 
+extern NSString * const IWDefaultSearchTerm;
+
+
+extern const NSInteger IWMetersPerMile;
+extern const NSInteger IWDogeFontSize;
 extern const NSInteger IWFontSize;
 extern const NSInteger IWGoButtonSize;
 extern const NSInteger IWCancelButtonSize;
