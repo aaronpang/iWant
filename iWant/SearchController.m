@@ -101,6 +101,9 @@ const CGFloat minimumHoursUntilClosing = 0.5;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    if (connection != _businessSearchConnection) {
+        return;
+    }
     _businessSearchConnection = nil;
     _validRestaurants = [NSMutableSet set];
     NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:_responseData options:NSJSONReadingAllowFragments error:nil];
@@ -271,7 +274,7 @@ const CGFloat minimumHoursUntilClosing = 0.5;
     CGFloat rating = [business[@"rating"] floatValue];
     
     // Determine if it is a valid result or not
-    if (price.length > maximumPrice) {
+    if (price.length > maximumPrice || price.length <= 0) {
         return;
     }
     if (rating < minimumRating) {
