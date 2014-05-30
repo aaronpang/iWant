@@ -14,6 +14,7 @@
 #import "Constants.h"
 #import "SearchController.h"
 #import "ResultView.h"
+#import "UIImage+ImageEffects.h"
 
 #import <QuartzCore/QuartzCore.h>
 #import <CoreLocation/CoreLocation.h>
@@ -31,6 +32,7 @@ const CGFloat sunsetHour = 20;
 @implementation RootViewController {
     UIView *_rootView;
     UIImageView *_backgroundImageView;
+    UIImageView *_backgroundBlurImageView;
     LoadingView *_loadingView;
     QuestionView *_questionView;
     ResultView *_resultView;
@@ -38,8 +40,6 @@ const CGFloat sunsetHour = 20;
     
     BOOL _dogeMode;
     NSTimer *_dogeDisplayTimer;
-
-
 }
 
 - (id)init
@@ -51,8 +51,12 @@ const CGFloat sunsetHour = 20;
         
         _backgroundImageView = [[UIImageView alloc] initWithFrame:_rootView.bounds];
         _backgroundImageView.contentMode = UIViewContentModeScaleToFill;
+        _backgroundBlurImageView = [[UIImageView alloc] initWithFrame:_rootView.bounds];
+        _backgroundBlurImageView.contentMode = UIViewContentModeScaleToFill;
+        _backgroundBlurImageView.alpha = 0.0f;
         [self determineBackgroundToShow];
         [_rootView addSubview:_backgroundImageView];
+        [_rootView addSubview:_backgroundBlurImageView];
         self.view = _rootView;
 
         _loadingView = [[LoadingView alloc] initWithFrame:_rootView.bounds];
@@ -86,18 +90,20 @@ const CGFloat sunsetHour = 20;
 - (void)determineBackgroundToShow {
     if (_dogeMode) {
         _backgroundImageView.image = [UIImage imageNamed:@"bg_doge.png"];
-        return;
-    }
-    
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
-    NSInteger currentHour = [components hour];
-    
-    // Display a different background depending on the time of day
-    if (currentHour > sunriseHour && currentHour < sunsetHour) {
-        _backgroundImageView.image = [UIImage imageNamed:@"bg_day.jpg"];
     } else {
-        _backgroundImageView.image = [UIImage imageNamed:@"bg.jpg"];
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:[NSDate date]];
+        NSInteger currentHour = [components hour];
+        
+        // Display a different background depending on the time of day
+        if (currentHour > sunriseHour && currentHour < sunsetHour) {
+            _backgroundImageView.image = [UIImage imageNamed:@"bg_day.jpg"];
+        } else {
+            _backgroundImageView.image = [UIImage imageNamed:@"bg.jpg"];
+        }
     }
+    
+    UIImage *blurredBackgroundImage = [_backgroundImageView.image applyBlurWithRadius:50.f tintColor:[UIColor clearColor] saturationDeltaFactor:1.8f maskImage:nil];
+    _backgroundBlurImageView.image = blurredBackgroundImage;
 }
 #pragma mark - Doge Things
 
@@ -156,7 +162,7 @@ const CGFloat sunsetHour = 20;
 }
 
 - (void)stopAskQuestion {
-    [self dismissLoadingView];
+    [self dismissLoadingViewWithResult:NO];
     [self presentQuestionView];
     if (_dogeMode) {
         [self stopDisplayingDogeThings];
@@ -205,10 +211,12 @@ const CGFloat sunsetHour = 20;
 
 - (void)stopAskQuestionWithResult:(id)result {
     NSDictionary *businessRanks = result;
-    [self dismissLoadingView];
+    [self dismissLoadingViewWithResult:YES];
     [self presentResultViewWithResult:businessRanks];
     [_searchController cancelSearch];
 }
+
+#pragma mark - Presenting and Dismissing Views
 
 - (void)presentResultViewWithResult:(id)result {
     NSDictionary *businessRanks = result;
@@ -229,6 +237,7 @@ const CGFloat sunsetHour = 20;
     // Animate the question view out
     [UIView animateWithDuration:questionViewZoomAnimateDuration delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
         _resultView.alpha = 0.0f;
+        _backgroundBlurImageView.alpha = 0.0f;
     } completion:^(BOOL finished) {
     }];
 }
@@ -253,8 +262,8 @@ const CGFloat sunsetHour = 20;
     }];
 }
 
-- (void)dismissLoadingView {
-    [self stopAnimatingBackground];
+- (void)dismissLoadingViewWithResult:(BOOL)result {
+    [self stopAnimatingBackgroundWithResult:result];
     _loadingView.userInteractionEnabled = NO;
     
     [UIView animateWithDuration:questionViewZoomAnimateDuration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
@@ -275,37 +284,35 @@ const CGFloat sunsetHour = 20;
     }];
 }
 
+
+#pragma mark - Animating Background
+
 - (void)startAnimatingBackground {
     // Start the zooming background animation
     [UIView animateWithDuration:IWTimeoutTime delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         _backgroundImageView.layer.transform = CATransform3DMakeScale(backgroundScaleFactor, backgroundScaleFactor, 1.0f);
+        _backgroundBlurImageView.layer.transform = CATransform3DMakeScale(backgroundScaleFactor, backgroundScaleFactor, 1.0f);
     } completion:^(BOOL finished) {
+    }];
+    
+    [UIView animateWithDuration:10.0f animations:^{
+        _backgroundBlurImageView.alpha = 1.0f;
     }];
 }
 
-- (void)stopAnimatingBackground {
+- (void)stopAnimatingBackgroundWithResult:(BOOL)result {
     [_backgroundImageView.layer removeAllAnimations];
+    [_backgroundBlurImageView.layer removeAllAnimations];
     CALayer *currentLayer = (CALayer *)_backgroundImageView.layer.presentationLayer;
     _backgroundImageView.layer.transform = currentLayer.transform;
     
     // Stop the animation and return the background image view back to it's original transform
     [UIView animateWithDuration:questionViewZoomAnimateDuration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
         _backgroundImageView.layer.transform = CATransform3DMakeScale(1.0f, 1.0f, 1.0f);
+        _backgroundBlurImageView.layer.transform = CATransform3DMakeScale(1.0f, 1.0f, 1.0f);
+        _backgroundBlurImageView.alpha = result ? 1.0f : 0.0f;
     } completion:^(BOOL finished) {
-    }];}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
+    }];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end

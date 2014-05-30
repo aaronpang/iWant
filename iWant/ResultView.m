@@ -123,7 +123,7 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_viewOnYelpButton(>=0)]-10-|" options:0 metrics:nil views:viewsDictionary]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_ratingLabel(>=0)]-[_priceLabel(>=0)]-10-|" options:0 metrics:nil views:viewsDictionary]];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_noButton(==buttonWidth)]-16-[_anotherButton(==buttonWidth)]-(>=0)-[_yesButton(==buttonWidth)]-10-|" options:0 metrics:@{@"buttonWidth":@(IWResultButtonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_noButton(==buttonWidth)]-15-[_anotherButton(==buttonWidth)]-(>=0)-[_yesButton(==buttonWidth)]-10-|" options:0 metrics:@{@"buttonWidth":@(IWResultButtonSize)} views:viewsDictionary]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_yesButton(==buttonHeight)]-25-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_noButton(==buttonHeight)]-25-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];

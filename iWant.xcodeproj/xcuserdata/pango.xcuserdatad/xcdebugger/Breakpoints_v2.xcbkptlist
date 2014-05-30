@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/SearchController.m"
-            timestampString = "422976116.50814"
+            timestampString = "423088039.351272"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "-determineValidResult:"
             landmarkType = "5">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/RootViewController.m"
-            timestampString = "422978619.696532"
+            timestampString = "423118579.971051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279">
+            startingLineNumber = "350"
+            endingLineNumber = "350">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -50,11 +50,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/RootViewController.m"
-            timestampString = "422978619.696532"
+            timestampString = "423118579.971051"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261">
+            startingLineNumber = "332"
+            endingLineNumber = "332">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -64,11 +64,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iWant/RootViewController.m"
-            timestampString = "422906421.287716"
+            timestampString = "423117660.815741"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-stopAskQuestionWithError:"
             landmarkType = "5">
          </BreakpointContent>

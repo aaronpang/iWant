@@ -46,7 +46,12 @@ const CGFloat minimumHoursUntilClosing = 0.5;
     [_locationManager startUpdatingLocation];
     
     _searchTerm = [searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([_searchTerm length] == 0) {
+        _searchTerm = IWDefaultSearchTerm;
+    }
     _searchTerm = [_searchTerm stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+ 
     
     NSError *errorObject = [NSError errorWithDomain:IWStopQuestionErrorDomain code:kStopQuestionTimeout userInfo:nil];
     [self performSelector:@selector(delegateStopSearchWithError:) withObject:errorObject afterDelay:IWTimeoutTime];
@@ -64,9 +69,6 @@ const CGFloat minimumHoursUntilClosing = 0.5;
 }
 
 - (void)startYelpSearch {
-    if (!_searchTerm) {
-        _searchTerm = IWDefaultSearchTerm;
-    }
 //    _location = [[CLLocation alloc] initWithLatitude:43.657323 longitude:-79.3891645];
     NSString *searchString = [NSString stringWithFormat:@"http://api.yelp.com/v2/search?term=%@&ll=%f,%f", _searchTerm, _location.coordinate.latitude, _location.coordinate.longitude];
     NSURL *URL = [NSURL URLWithString:searchString];
@@ -115,7 +117,7 @@ const CGFloat minimumHoursUntilClosing = 0.5;
         return;
     }
     _opQueue = [[NSOperationQueue alloc]init];
-    [_opQueue setMaxConcurrentOperationCount:15];
+    [_opQueue setMaxConcurrentOperationCount:20];
     for (NSDictionary *business in businessArray) {
         [_opQueue addOperation:[[NSInvocationOperation alloc] initWithTarget:self selector:@selector(determineValidResult:) object:business]];
     }
