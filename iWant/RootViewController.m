@@ -25,6 +25,7 @@ const CGFloat questionViewZoomScale = 1.5f;
 const CGFloat backgroundScaleFactor = 3.5;
 const CGFloat sunriseHour = 6.5;
 const CGFloat sunsetHour = 20;
+const CGFloat blurFadeTime = 7.f;
 
 @interface RootViewController () <QuestionViewDelegate, LoadingViewDelegate, SearchControllerDelegate>
 @end
@@ -96,13 +97,13 @@ const CGFloat sunsetHour = 20;
         
         // Display a different background depending on the time of day
         if (currentHour > sunriseHour && currentHour < sunsetHour) {
-            _backgroundImageView.image = [UIImage imageNamed:@"bg_day.jpg"];
+            _backgroundImageView.image = [UIImage imageNamed:@"bg_day.png"];
         } else {
-            _backgroundImageView.image = [UIImage imageNamed:@"bg.jpg"];
+            _backgroundImageView.image = [UIImage imageNamed:@"bg_night.jpg"];
         }
     }
     
-    UIImage *blurredBackgroundImage = [_backgroundImageView.image applyBlurWithRadius:50.f tintColor:[UIColor clearColor] saturationDeltaFactor:1.8f maskImage:nil];
+    UIImage *blurredBackgroundImage = [_backgroundImageView.image applyBlurWithRadius:50.f tintColor:[UIColor clearColor] saturationDeltaFactor:1.4f maskImage:nil];
     _backgroundBlurImageView.image = blurredBackgroundImage;
 }
 #pragma mark - Doge Things
@@ -191,6 +192,9 @@ const CGFloat sunsetHour = 20;
                 errorTitle = NSLocalizedString(@"Activate Location", @"Home Screen - Error loading location");
                 errorMessage = NSLocalizedString(@"Please activate location services to use iWant", @"Home Screen - Error loading location comment");
             }
+        } else if (error.code == kStopQuestionNoResponseErrorCode) {
+            errorTitle = NSLocalizedString(@"No locations from Yelp", @"Home Screen - Error No Response");
+            errorMessage = NSLocalizedString(@"There were no locations retrieved from Yelp. Please Try Again.", @"Home Screen - Error No Results comment");
         } else if (error.code == kStopQuestionNoResultsErrorCode) {
             errorTitle = NSLocalizedString(@"No Locations", @"Home Screen - Error No Results");
             errorMessage = NSLocalizedString(@"No locations were found. All locations may be closed or nothing fits our desired criteria.", @"Home Screen - Error No Results comment");
@@ -295,7 +299,7 @@ const CGFloat sunsetHour = 20;
     } completion:^(BOOL finished) {
     }];
     
-    [UIView animateWithDuration:10.0f animations:^{
+    [UIView animateWithDuration:blurFadeTime animations:^{
         _backgroundBlurImageView.alpha = 1.0f;
     }];
 }
@@ -305,6 +309,9 @@ const CGFloat sunsetHour = 20;
     [_backgroundBlurImageView.layer removeAllAnimations];
     CALayer *currentLayer = (CALayer *)_backgroundImageView.layer.presentationLayer;
     _backgroundImageView.layer.transform = currentLayer.transform;
+    CALayer *currentBlurLayer = (CALayer *)_backgroundBlurImageView.layer.presentationLayer;
+    _backgroundBlurImageView.layer.transform = currentBlurLayer.transform;
+    _backgroundBlurImageView.alpha = currentBlurLayer.opacity;
     
     // Stop the animation and return the background image view back to it's original transform
     [UIView animateWithDuration:questionViewZoomAnimateDuration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{

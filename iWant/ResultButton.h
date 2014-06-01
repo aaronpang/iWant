@@ -10,4 +10,5 @@
 
 @interface ResultButton : UIButton
 - (id)initWithBackgroundColor:(UIColor *)backgroundColor fontColor:(UIColor *)fontColor title:(NSString *)title;
+- (void)setFontSize:(CGFloat)size;
 @end

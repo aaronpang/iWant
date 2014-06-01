@@ -21,9 +21,9 @@
     UILabel *_ratingLabel;
     UILabel *_priceLabel;
     IWButton *_viewOnYelpButton;
-    UIButton *_yesButton;
-    UIButton *_noButton;
-    UIButton *_anotherButton;
+    ResultButton *_yesButton;
+    ResultButton *_noButton;
+    ResultButton *_anotherButton;
     
     NSDictionary *_business;
     NSDictionary *_businessRanks;
@@ -96,18 +96,19 @@
         _priceLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:_priceLabel];
 
-        _yesButton = [[ResultButton alloc] initWithBackgroundColor:[UIColor colorWithRed:0 green:0xcc/255.f blue:0 alpha:1] fontColor:[UIColor whiteColor] title:@"YES"];
+        _yesButton = [[ResultButton alloc] initWithBackgroundColor:[UIColor colorWithRed:0x2e/255.f green:0xcc/255.f blue:0x71/255.f alpha:1] fontColor:[UIColor whiteColor] title:@"YES"];
         [_yesButton addTarget:self action:@selector(yesButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_yesButton setFontSize:33];
         _yesButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_yesButton];
         
-        _noButton = [[ResultButton alloc] initWithBackgroundColor:[UIColor redColor] fontColor:[UIColor whiteColor] title:@"BACK"];
+        _noButton = [[ResultButton alloc] initWithBackgroundColor:[UIColor colorWithRed:0x34/255.f green:0x98/255.f blue:0xdb/255.f alpha:1] fontColor:[UIColor whiteColor] title:@"BACK"];
         [_noButton addTarget:self action:@selector(noButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _noButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_noButton];
         
         
-        _anotherButton = [[ResultButton alloc] initWithBackgroundColor:[UIColor colorWithRed:0xBF/255.f green:0x5F/255.f blue:0xFF/255.f alpha:1] fontColor:[UIColor whiteColor] title:@"NO"];
+        _anotherButton = [[ResultButton alloc] initWithBackgroundColor:[UIColor colorWithRed:0xe74/255.f green:0x4c/255.f blue:0x3c/255.f alpha:1] fontColor:[UIColor whiteColor] title:@"NO"];
         [_anotherButton addTarget:self action:@selector(anotherButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         _anotherButton.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_anotherButton];
@@ -123,11 +124,11 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_viewOnYelpButton(>=0)]-10-|" options:0 metrics:nil views:viewsDictionary]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_ratingLabel(>=0)]-[_priceLabel(>=0)]-10-|" options:0 metrics:nil views:viewsDictionary]];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_noButton(==buttonWidth)]-15-[_anotherButton(==buttonWidth)]-(>=0)-[_yesButton(==buttonWidth)]-10-|" options:0 metrics:@{@"buttonWidth":@(IWResultButtonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_noButton(==buttonWidth)]-17-[_anotherButton(==buttonWidth)]-(>=0)-[_yesButton(==buttonWidth)]-15-|" options:0 metrics:@{@"buttonWidth":@(IWResultButtonSize)} views:viewsDictionary]];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_yesButton(==buttonHeight)]-25-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_noButton(==buttonHeight)]-25-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_anotherButton(==buttonHeight)]-25-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_yesButton(==buttonHeight)]-30-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_noButton(==buttonHeight)]-30-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_anotherButton(==buttonHeight)]-30-|" options:0 metrics:@{@"buttonHeight":@(IWResultButtonSize)} views:viewsDictionary]];
     
         _leftOverBusinessRanks = [NSMutableDictionary dictionary];
 

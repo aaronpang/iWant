@@ -29,6 +29,7 @@ extern NSString * const IWStopQuestionErrorDomain;
 
 typedef enum {
     kStopQuestionLoadingLocationErrorCode,
+    kStopQuestionNoResponseErrorCode,
     kStopQuestionNoResultsErrorCode,
     kStopQuestionConnectionErrorCode,
     kStopQuestionTimeout

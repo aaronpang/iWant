@@ -26,7 +26,7 @@
         self.backgroundColor = _backgroundColor;
         
         [self setTitle:title forState:UIControlStateNormal];
-        [self.titleLabel setFont:[UIFont fontWithName:IWItalicFontName size:25]];
+        [self.titleLabel setFont:[UIFont fontWithName:IWItalicFontName size:26]];
         
         [self setTitleColor:_fontColor forState:UIControlStateNormal];
         [self setTitleColor:_backgroundColor forState:UIControlStateHighlighted];
@@ -34,6 +34,10 @@
         self.titleLabel.adjustsFontSizeToFitWidth = YES;
     }
     return self;
+}
+
+- (void)setFontSize:(CGFloat)size {
+    self.titleLabel.font = [UIFont fontWithName:IWItalicFontName size:size];
 }
 
 - (void)setHighlighted:(BOOL)highlighted {

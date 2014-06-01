@@ -65,7 +65,7 @@ const CGFloat minimumHoursUntilClosing = 0.5;
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self.delegate stopAskQuestionWithError:[NSError errorWithDomain:IWStopQuestionErrorDomain code:kStopQuestionConnectionErrorCode userInfo:@{@"error":error}]];
+    [self.delegate stopAskQuestionWithError:[NSError errorWithDomain:IWStopQuestionErrorDomain code:kStopQuestionLoadingLocationErrorCode userInfo:@{@"error":error}]];
 }
 
 - (void)startYelpSearch {
@@ -113,7 +113,7 @@ const CGFloat minimumHoursUntilClosing = 0.5;
     NSArray *businessArray = responseDictionary[@"businesses"];
     if (![businessArray count]) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
-        [self.delegate stopAskQuestionWithError:[NSError errorWithDomain:IWStopQuestionErrorDomain code:kStopQuestionNoResultsErrorCode userInfo:nil]];
+        [self.delegate stopAskQuestionWithError:[NSError errorWithDomain:IWStopQuestionErrorDomain code:kStopQuestionNoResponseErrorCode userInfo:nil]];
         return;
     }
     _opQueue = [[NSOperationQueue alloc]init];
