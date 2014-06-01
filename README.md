@@ -5,8 +5,10 @@ Don't know where to eat? Don't know where to get your nails done? iWant is the p
 
 <a href="https://play.google.com/store/apps/details?id=com.serendipity"><strong>Download the Android App Here!</strong></a>
 
-![Gif-2](http://i.imgur.com/4KJmgQr.gif)
-![Gif-1](http://i.imgur.com/FsnFWOJ.gif4KJmgQr)
+![1](http://www.aaronpang.com/Gifs/iWant/1.gif)
+![2](http://www.aaronpang.com/Gifs/iWant/2.gif)
+![3](http://www.aaronpang.com/Gifs/iWant/3.gif)
+![4](http://www.aaronpang.com/Gifs/iWant/4.gif)
 
 <strong>How it Works:</strong><br>
 iWant takes the search term of the user and looks on Yelp for that search term.<br>
