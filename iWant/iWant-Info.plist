@@ -19,16 +19,13 @@
 				<string>Icon-60</string>
 				<string>Icon-40</string>
 				<string>appIcon</string>
-				<string>appIcon_6.1</string>
-				<string>appIcon_spotlight2</string>
-				<string>appIcon_spotlight</string>
 			</array>
 		</dict>
 	</dict>
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>com.aaronpant.iwant</string>
+	<string>com.aaronpang.iwant</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
